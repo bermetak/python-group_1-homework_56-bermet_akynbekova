@@ -4,6 +4,10 @@ import Field from "./components/Field/Field";
 import Cell from "./components/Field/Cell/Cell";
 
 
+// Чтобы FIELD_SIZE корректно работал, нужно ширину поля и ячеек задавать динамически
+// через style в Cell.js, а не через классы. Тем не менее,
+// количество ячеек на поле можно менять прямо сейчас, но они будут некорректно отображаться -
+// будут выходить за границы поля или не заполнять поле, если их слишком мало.
 const FIELD_SIZE = 6;
 
 
@@ -33,18 +37,21 @@ class App extends Component {
 
     openCell = (id) => {
         let cell = {...this.state.cells[id]};
-        cell.closed = false;
 
-        let cells = [...this.state.cells];
-        cells[id] = cell;
+        // открываем ячейку, только если она закрыта,
+        // чтобы не считать повторные клики по одной и той же ячейке.
+        if (cell.closed) {
+            cell.closed = false;
 
-        let state = {...this.state};
-        state.cells = cells;
-        state.counter = state.counter + 1;
+            let cells = [...this.state.cells];
+            cells[id] = cell;
 
+            let state = {...this.state};
+            state.cells = cells;
+            state.counter = state.counter + 1;
 
-
-        this.setState(state);
+            this.setState(state);
+        }
     };
 
     render() {
@@ -59,7 +66,6 @@ class App extends Component {
                         />
                     )}
                 </Field>
-                <p>{this.state.counter}</p>
             </div>
         );
     }

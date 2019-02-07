@@ -2,23 +2,19 @@ import React from 'react';
 
 
 function Cell(props) {
-    let hiddenItem = null;
-    if (props.cell.hasItem) {
-        hiddenItem = <span className='hidden-item'>O</span>;
-    }
+    // собираем строку, представляющую классы ячейки
+    let cellClass = 'cell';
 
-    let cellStyle = {
-        background: 'transparent',
-        color: 'black'
-    };
-    if (props.cell.closed) {
-        cellStyle.background = 'red';
-        cellStyle.color = 'red';
-    }
+    // 'cell visible' или 'cell invisible'
+    cellClass += props.cell.closed ? ' visible' : ' invisible';
 
-    return <div className='cell' style={cellStyle} onClick={props.click}>
-        {hiddenItem}
-    </div>
+    // 'cell ... has-item' или 'cell ...'
+    // тернарный оператор обязательно принимает второй аргумент для else
+    // если в else ничего нет - он должен быть пустым, в зависимости от типа данных:
+    // пустой строкой (''), null, false, undefined, 0, [] и т.д.
+    cellClass += props.cell.hasItem ? ' has-item' : '';
+
+    return <div className={cellClass} onClick={props.click}/>
 }
 
 
