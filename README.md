@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Занятие #56
+
+Python 1-2. Лабораторная работа #56. Динамическая работа со стилями и классами в React.
+
 ## Available Scripts
 
 In the project directory, you can run:
