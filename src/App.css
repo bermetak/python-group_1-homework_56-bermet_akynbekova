@@ -26,18 +26,14 @@
     margin: 2px;
     display: inline-block;
     position: relative;
-}
-
-.cell.visible {
     background: coral;
 }
 
-.cell.invisible {
+.cell.open {
     background: transparent;
 }
 
-.cell.invisible.has-item::after {
-    content: 'O';
+.cell.has-item::after {
     position: absolute;
     font-size: 20px;
     font-weight: bold;
@@ -49,4 +45,8 @@
     width: 20px;
     top: 18px;
     left: 18px;
+}
+
+.cell.open.has-item::after {
+    content: 'O';
 }

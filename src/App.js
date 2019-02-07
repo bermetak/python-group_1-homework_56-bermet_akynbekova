@@ -26,7 +26,7 @@ class App extends Component {
         let cellsCount = FIELD_SIZE ** 2;
         for (let i = 0; i < cellsCount; i++) {
             cells.push({
-                closed: true,
+                open: false,
                 hasItem: false,
             })
         }
@@ -40,8 +40,8 @@ class App extends Component {
 
         // открываем ячейку, только если она закрыта,
         // чтобы не считать повторные клики по одной и той же ячейке.
-        if (cell.closed) {
-            cell.closed = false;
+        if (!cell.open) {
+            cell.open = true;
 
             let cells = [...this.state.cells];
             cells[id] = cell;
