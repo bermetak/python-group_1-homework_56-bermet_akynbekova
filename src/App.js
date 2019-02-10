@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './App.css';
 import Field from "./components/Field/Field";
 import Cell from "./components/Field/Cell/Cell";
-
+import Tries from './components/GameBar/Tries';
+import Reset from './components/GameBar/Reset';
 
 // Чтобы FIELD_SIZE корректно работал, нужно ширину поля и ячеек задавать динамически
 // через style в Cell.js, а не через классы. Тем не менее,
@@ -32,14 +33,13 @@ class App extends Component {
         }
         let randomIndex = Math.floor(Math.random() * cellsCount);
         cells[randomIndex].hasItem = true;
+        console.log(cells)
         return cells;
     };
 
     openCell = (id) => {
         let cell = {...this.state.cells[id]};
 
-        // открываем ячейку, только если она закрыта,
-        // чтобы не считать повторные клики по одной и той же ячейке.
         if (!cell.open) {
             cell.open = true;
 
@@ -54,6 +54,21 @@ class App extends Component {
         }
     };
 
+    findO = (id) => {
+        let cell = {...this.state.cells[id]};
+        if (cell.hasItem) {
+            return true
+        }
+    };
+
+    resetGame = () => {
+        let state = {...this.state};
+        state.cells = this.generateCells();
+        state.counter = 0;
+
+        this.setState(state);
+    };
+
     render() {
         return (
             <div className="container">
@@ -66,6 +81,10 @@ class App extends Component {
                         />
                     )}
                 </Field>
+                <Tries tries={this.state.counter}/>
+                <Reset reset={this.resetGame}/>
+
+
             </div>
         );
     }

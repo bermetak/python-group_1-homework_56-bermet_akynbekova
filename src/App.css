@@ -20,6 +20,16 @@
     border: 1px solid black;
 }
 
+.tries {
+    margin: 20px;
+    text-align: center;
+}
+.reset {
+    text-align: center;
+    margin: 20px;
+}
+
+
 .cell {
     width: 56px;
     height: 56px;
