@@ -3,12 +3,17 @@
     margin: 0 auto;
 }
 
-.button {
-    min-width: 100px;
-    box-shadow: None;
-    background: sienna;
-    color: seashell;
-    text-transform: uppercase;
+/*.button {*/
+    /*min-width: 100px;*/
+    /*box-shadow: None;*/
+    /*background: sienna;*/
+    /*color: seashell;*/
+    /*text-transform: uppercase;*/
+/*}*/
+
+.youwin {
+    text-align: center;
+    color: red;
 }
 
 .field {

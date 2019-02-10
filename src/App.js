@@ -18,7 +18,8 @@ class App extends Component {
 
         this.state = {
             cells: this.generateCells(),
-            counter: 0
+            counter: 0,
+            win: false
         }
     }
 
@@ -38,26 +39,25 @@ class App extends Component {
     };
 
     openCell = (id) => {
-        let cell = {...this.state.cells[id]};
+        if (!this.state.win) {
+            let cell = {...this.state.cells[id]};
 
-        if (!cell.open) {
-            cell.open = true;
+            if (!cell.open) {
+                cell.open = true;
 
-            let cells = [...this.state.cells];
-            cells[id] = cell;
 
-            let state = {...this.state};
-            state.cells = cells;
-            state.counter = state.counter + 1;
+                let cells = [...this.state.cells];
+                cells[id] = cell;
 
-            this.setState(state);
-        }
-    };
+                let state = {...this.state};
+                if (cell.hasItem) {
+                    state.win = true;
+                }
+                state.cells = cells;
+                state.counter = state.counter + 1;
 
-    findO = (id) => {
-        let cell = {...this.state.cells[id]};
-        if (cell.hasItem) {
-            return true
+                this.setState(state);
+            }
         }
     };
 
@@ -65,6 +65,7 @@ class App extends Component {
         let state = {...this.state};
         state.cells = this.generateCells();
         state.counter = 0;
+        state.win = false;
 
         this.setState(state);
     };
@@ -72,7 +73,11 @@ class App extends Component {
     render() {
         return (
             <div className="container">
+                {this.state.win ? <h1 className='youwin'>You Win!</h1>
+                    :
+                    null }
                 <Field>
+
                     {this.state.cells.map((item, index) =>
                         <Cell
                             cell={item}
@@ -80,6 +85,7 @@ class App extends Component {
                             click={() => this.openCell(index)}
                         />
                     )}
+
                 </Field>
                 <Tries tries={this.state.counter}/>
                 <Reset reset={this.resetGame}/>
